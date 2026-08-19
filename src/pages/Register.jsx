@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Register.css";
 
 function Register() {
+  const navigate = useNavigate();
+
   const [userType, setUserType] = useState("patient");
 
   const [fullName, setFullName] = useState("");
@@ -32,7 +35,6 @@ function Register() {
   const validateForm = () => {
     const newErrors = {};
 
-    // Common field validation
     if (!fullName.trim()) {
       newErrors.fullName = "Full name is required.";
     }
@@ -61,7 +63,6 @@ function Register() {
       newErrors.confirmPassword = "Passwords do not match.";
     }
 
-    // Patient validation
     if (userType === "patient") {
       if (!dateOfBirth) {
         newErrors.dateOfBirth = "Date of birth is required.";
@@ -73,13 +74,14 @@ function Register() {
 
       if (!emergencyContact.trim()) {
         newErrors.emergencyContact = "Emergency contact is required.";
-      } else if (!/^\d{10}$/.test(emergencyContact.replace(/\D/g, ""))) {
+      } else if (
+        !/^\d{10}$/.test(emergencyContact.replace(/\D/g, ""))
+      ) {
         newErrors.emergencyContact =
           "Enter a valid 10-digit emergency contact.";
       }
     }
 
-    // Doctor validation
     if (userType === "doctor") {
       if (!registrationNumber.trim()) {
         newErrors.registrationNumber =
@@ -101,7 +103,6 @@ function Register() {
       }
     }
 
-    // Caregiver validation
     if (userType === "caregiver") {
       if (!relationship) {
         newErrors.relationship =
@@ -109,11 +110,11 @@ function Register() {
       }
 
       if (!patientId.trim()) {
-        newErrors.patientId = "Patient ID or invitation code is required.";
+        newErrors.patientId =
+          "Patient ID or invitation code is required.";
       }
     }
 
-    // Terms validation
     if (!agreeToTerms) {
       newErrors.agreeToTerms =
         "You must agree to the Terms of Service and Privacy Policy.";
@@ -124,9 +125,60 @@ function Register() {
     return Object.keys(newErrors).length === 0;
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const isValid = validateForm();
+
+    if (!isValid) return;
+
+    /*
+     * Store only non-sensitive profile information.
+     * Password is intentionally NOT stored in localStorage.
+     */
+    const userData = {
+      userType,
+      fullName: fullName.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+
+      dateOfBirth,
+      gender,
+      emergencyContact,
+
+      registrationNumber,
+      specialization,
+      hospital,
+      experience,
+
+      relationship,
+      patientId,
+    };
+
+    localStorage.setItem(
+      "healthMonitorUser",
+      JSON.stringify(userData)
+    );
+
+    /*
+     * Simple frontend authentication state.
+     * This will later be replaced by backend authentication.
+     */
+    localStorage.setItem("healthMonitorLoggedIn", "true");
+
+    if (userType === "patient") {
+      navigate("/dashboard");
+    } else if (userType === "doctor") {
+      navigate("/doctor-dashboard");
+    } else {
+      navigate("/caregiver-dashboard");
+    }
+  };
+
   return (
     <main className="register-page">
-      {/* Left side - Healthcare introduction */}
+      {/* LEFT INFORMATION PANEL */}
+
       <section className="register-info">
         <div className="register-brand">
           <span className="brand-mark">+</span>
@@ -134,7 +186,9 @@ function Register() {
         </div>
 
         <div className="register-info-content">
-          <span className="section-label">JOIN HEALTHMONITOR</span>
+          <span className="section-label">
+            JOIN HEALTHMONITOR
+          </span>
 
           <h1>
             Start your journey toward
@@ -142,8 +196,9 @@ function Register() {
           </h1>
 
           <p>
-            Create your account and become part of a connected healthcare
-            platform designed for patients, doctors, and caregivers.
+            Create your account and become part of a connected
+            healthcare platform designed for patients, doctors,
+            and caregivers.
           </p>
         </div>
 
@@ -154,170 +209,205 @@ function Register() {
         </div>
       </section>
 
-      {/* Right side - Registration form */}
+      {/* RIGHT FORM PANEL */}
+
       <section className="register-form-section">
         <div className="register-form-container">
           <div className="register-heading">
-            <span className="section-label">CREATE ACCOUNT</span>
+            <span className="section-label">
+              CREATE ACCOUNT
+            </span>
 
             <h2>Get started with HealthMonitor</h2>
 
             <p>
-              Create your account to access the healthcare monitoring platform.
+              Create your account to access the healthcare
+              monitoring platform.
             </p>
           </div>
 
           <form
             className="register-form"
-            onSubmit={(event) => {
-              event.preventDefault();
-
-              const isValid = validateForm();
-
-              if (isValid) {
-                console.log({
-                  userType,
-                  fullName,
-                  email,
-                  phone,
-                  password,
-                  confirmPassword,
-                  dateOfBirth,
-                  gender,
-                  emergencyContact,
-                  registrationNumber,
-                  specialization,
-                  hospital,
-                  experience,
-                  relationship,
-                  patientId,
-                  agreeToTerms,
-                });
-              }
-            }}
+            noValidate
+            onSubmit={handleSubmit}
           >
-            {/* Account type */}
+            {/* ACCOUNT TYPE */}
+
             <div className="form-group">
-              <label htmlFor="userType">Account type</label>
+              <label htmlFor="userType">
+                Account type
+              </label>
 
               <select
                 id="userType"
-                name="userType"
                 value={userType}
-                onChange={(event) => setUserType(event.target.value)}
+                onChange={(event) => {
+                  setUserType(event.target.value);
+                  setErrors({});
+                }}
               >
-                <option value="patient">Patient</option>
-                <option value="doctor">Doctor</option>
-                <option value="caregiver">Family / Caregiver</option>
+                <option value="patient">
+                  Patient
+                </option>
+
+                <option value="doctor">
+                  Doctor
+                </option>
+
+                <option value="caregiver">
+                  Family / Caregiver
+                </option>
               </select>
             </div>
 
-            {/* Full name */}
+            {/* FULL NAME */}
+
             <div className="form-group">
-              <label htmlFor="fullName">Full name</label>
+              <label htmlFor="fullName">
+                Full name
+              </label>
 
               <input
                 type="text"
                 id="fullName"
-                name="fullName"
                 placeholder="Enter your full name"
                 autoComplete="name"
                 value={fullName}
-                onChange={(event) => setFullName(event.target.value)}
+                onChange={(event) =>
+                  setFullName(event.target.value)
+                }
               />
 
               {errors.fullName && (
-                <span className="form-error">{errors.fullName}</span>
+                <span className="form-error">
+                  {errors.fullName}
+                </span>
               )}
             </div>
 
-            {/* Email */}
+            {/* EMAIL */}
+
             <div className="form-group">
-              <label htmlFor="email">Email address</label>
+              <label htmlFor="email">
+                Email address
+              </label>
 
               <input
                 type="email"
                 id="email"
-                name="email"
                 placeholder="Enter your email"
                 autoComplete="email"
                 value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={(event) =>
+                  setEmail(event.target.value)
+                }
               />
 
               {errors.email && (
-                <span className="form-error">{errors.email}</span>
+                <span className="form-error">
+                  {errors.email}
+                </span>
               )}
             </div>
 
-            {/* Phone */}
+            {/* PHONE */}
+
             <div className="form-group">
-              <label htmlFor="phone">Phone number</label>
+              <label htmlFor="phone">
+                Phone number
+              </label>
 
               <input
                 type="tel"
                 id="phone"
-                name="phone"
                 placeholder="Enter your phone number"
                 autoComplete="tel"
                 value={phone}
-                onChange={(event) => setPhone(event.target.value)}
+                onChange={(event) =>
+                  setPhone(event.target.value)
+                }
               />
 
               {errors.phone && (
-                <span className="form-error">{errors.phone}</span>
+                <span className="form-error">
+                  {errors.phone}
+                </span>
               )}
             </div>
 
-            {/* Patient-specific fields */}
+            {/* PATIENT FIELDS */}
+
             {userType === "patient" && (
               <>
                 <div className="form-group">
-                  <label htmlFor="dateOfBirth">Date of birth</label>
+                  <label htmlFor="dateOfBirth">
+                    Date of birth
+                  </label>
 
                   <input
                     type="date"
                     id="dateOfBirth"
-                    name="dateOfBirth"
                     value={dateOfBirth}
-                    onChange={(event) => setDateOfBirth(event.target.value)}
+                    onChange={(event) =>
+                      setDateOfBirth(event.target.value)
+                    }
                   />
 
                   {errors.dateOfBirth && (
-                    <span className="form-error">{errors.dateOfBirth}</span>
+                    <span className="form-error">
+                      {errors.dateOfBirth}
+                    </span>
                   )}
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="gender">Gender</label>
+                  <label htmlFor="gender">
+                    Gender
+                  </label>
 
                   <select
                     id="gender"
-                    name="gender"
                     value={gender}
-                    onChange={(event) => setGender(event.target.value)}
+                    onChange={(event) =>
+                      setGender(event.target.value)
+                    }
                   >
                     <option value="" disabled>
                       Select gender
                     </option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                    <option value="prefer-not-to-say">Prefer not to say</option>
+
+                    <option value="male">
+                      Male
+                    </option>
+
+                    <option value="female">
+                      Female
+                    </option>
+
+                    <option value="other">
+                      Other
+                    </option>
+
+                    <option value="prefer-not-to-say">
+                      Prefer not to say
+                    </option>
                   </select>
 
                   {errors.gender && (
-                    <span className="form-error">{errors.gender}</span>
+                    <span className="form-error">
+                      {errors.gender}
+                    </span>
                   )}
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="emergencyContact">Emergency contact</label>
+                  <label htmlFor="emergencyContact">
+                    Emergency contact
+                  </label>
 
                   <input
                     type="tel"
                     id="emergencyContact"
-                    name="emergencyContact"
                     placeholder="Enter emergency contact number"
                     value={emergencyContact}
                     onChange={(event) =>
@@ -334,7 +424,8 @@ function Register() {
               </>
             )}
 
-            {/* Doctor-specific fields */}
+            {/* DOCTOR FIELDS */}
+
             {userType === "doctor" && (
               <>
                 <div className="form-group">
@@ -345,7 +436,6 @@ function Register() {
                   <input
                     type="text"
                     id="registrationNumber"
-                    name="registrationNumber"
                     placeholder="Enter registration number"
                     value={registrationNumber}
                     onChange={(event) =>
@@ -361,60 +451,76 @@ function Register() {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="specialization">Specialization</label>
+                  <label htmlFor="specialization">
+                    Specialization
+                  </label>
 
                   <input
                     type="text"
                     id="specialization"
-                    name="specialization"
                     placeholder="e.g. Cardiology"
                     value={specialization}
-                    onChange={(event) => setSpecialization(event.target.value)}
+                    onChange={(event) =>
+                      setSpecialization(event.target.value)
+                    }
                   />
 
                   {errors.specialization && (
-                    <span className="form-error">{errors.specialization}</span>
+                    <span className="form-error">
+                      {errors.specialization}
+                    </span>
                   )}
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="hospital">Hospital / Clinic</label>
+                  <label htmlFor="hospital">
+                    Hospital / Clinic
+                  </label>
 
                   <input
                     type="text"
                     id="hospital"
-                    name="hospital"
                     placeholder="Enter hospital or clinic name"
                     value={hospital}
-                    onChange={(event) => setHospital(event.target.value)}
+                    onChange={(event) =>
+                      setHospital(event.target.value)
+                    }
                   />
 
                   {errors.hospital && (
-                    <span className="form-error">{errors.hospital}</span>
+                    <span className="form-error">
+                      {errors.hospital}
+                    </span>
                   )}
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="experience">Years of experience</label>
+                  <label htmlFor="experience">
+                    Years of experience
+                  </label>
 
                   <input
                     type="number"
                     id="experience"
-                    name="experience"
                     min="0"
                     placeholder="Enter years of experience"
                     value={experience}
-                    onChange={(event) => setExperience(event.target.value)}
+                    onChange={(event) =>
+                      setExperience(event.target.value)
+                    }
                   />
 
                   {errors.experience && (
-                    <span className="form-error">{errors.experience}</span>
+                    <span className="form-error">
+                      {errors.experience}
+                    </span>
                   )}
                 </div>
               </>
             )}
 
-            {/* Caregiver-specific fields */}
+            {/* CAREGIVER FIELDS */}
+
             {userType === "caregiver" && (
               <>
                 <div className="form-group">
@@ -424,27 +530,48 @@ function Register() {
 
                   <select
                     id="relationship"
-                    name="relationship"
                     value={relationship}
-                    onChange={(event) => setRelationship(event.target.value)}
+                    onChange={(event) =>
+                      setRelationship(event.target.value)
+                    }
                   >
                     <option value="" disabled>
                       Select relationship
                     </option>
 
-                    <option value="parent">Parent</option>
-                    <option value="spouse">Spouse</option>
-                    <option value="child">Child</option>
-                    <option value="sibling">Sibling</option>
-                    <option value="relative">Relative</option>
+                    <option value="parent">
+                      Parent
+                    </option>
+
+                    <option value="spouse">
+                      Spouse
+                    </option>
+
+                    <option value="child">
+                      Child
+                    </option>
+
+                    <option value="sibling">
+                      Sibling
+                    </option>
+
+                    <option value="relative">
+                      Relative
+                    </option>
+
                     <option value="professional-caregiver">
                       Professional Caregiver
                     </option>
-                    <option value="other">Other</option>
+
+                    <option value="other">
+                      Other
+                    </option>
                   </select>
 
                   {errors.relationship && (
-                    <span className="form-error">{errors.relationship}</span>
+                    <span className="form-error">
+                      {errors.relationship}
+                    </span>
                   )}
                 </div>
 
@@ -456,116 +583,161 @@ function Register() {
                   <input
                     type="text"
                     id="patientId"
-                    name="patientId"
                     placeholder="Enter patient ID or invitation code"
                     value={patientId}
-                    onChange={(event) => setPatientId(event.target.value)}
+                    onChange={(event) =>
+                      setPatientId(event.target.value)
+                    }
                   />
 
                   {errors.patientId && (
-                    <span className="form-error">{errors.patientId}</span>
+                    <span className="form-error">
+                      {errors.patientId}
+                    </span>
                   )}
                 </div>
               </>
             )}
 
-            {/* Password */}
+            {/* PASSWORD */}
+
             <div className="form-group">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">
+                Password
+              </label>
 
               <div className="register-password-wrapper">
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={
+                    showPassword
+                      ? "text"
+                      : "password"
+                  }
                   id="password"
-                  name="password"
                   placeholder="Create a password"
                   autoComplete="new-password"
                   value={password}
-                  onChange={(event) => setPassword(event.target.value)}
+                  onChange={(event) =>
+                    setPassword(event.target.value)
+                  }
                 />
-
-                {errors.password && (
-                  <span className="form-error">{errors.password}</span>
-                )}
 
                 <button
                   type="button"
                   className="register-password-toggle"
-                  onClick={() => setShowPassword(!showPassword)}
-                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  onClick={() =>
+                    setShowPassword(!showPassword)
+                  }
                 >
                   {showPassword ? "Hide" : "Show"}
                 </button>
               </div>
+
+              {errors.password && (
+                <span className="form-error">
+                  {errors.password}
+                </span>
+              )}
             </div>
 
-            {/* Confirm Password */}
+            {/* CONFIRM PASSWORD */}
+
             <div className="form-group">
-              <label htmlFor="confirmPassword">Confirm password</label>
+              <label htmlFor="confirmPassword">
+                Confirm password
+              </label>
 
               <div className="register-password-wrapper">
                 <input
-                  type={showConfirmPassword ? "text" : "password"}
+                  type={
+                    showConfirmPassword
+                      ? "text"
+                      : "password"
+                  }
                   id="confirmPassword"
-                  name="confirmPassword"
                   placeholder="Confirm your password"
                   autoComplete="new-password"
                   value={confirmPassword}
-                  onChange={(event) => setConfirmPassword(event.target.value)}
+                  onChange={(event) =>
+                    setConfirmPassword(event.target.value)
+                  }
                 />
-
-                {errors.confirmPassword && (
-                  <span className="form-error">{errors.confirmPassword}</span>
-                )}
 
                 <button
                   type="button"
                   className="register-password-toggle"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  aria-label={
-                    showConfirmPassword
-                      ? "Hide confirm password"
-                      : "Show confirm password"
+                  onClick={() =>
+                    setShowConfirmPassword(
+                      !showConfirmPassword
+                    )
                   }
                 >
-                  {showConfirmPassword ? "Hide" : "Show"}
+                  {showConfirmPassword
+                    ? "Hide"
+                    : "Show"}
                 </button>
               </div>
+
+              {errors.confirmPassword && (
+                <span className="form-error">
+                  {errors.confirmPassword}
+                </span>
+              )}
             </div>
 
-            {/* Terms and Conditions */}
+            {/* TERMS */}
+
             <div className="terms-group">
               <label className="terms-label">
                 <input
                   type="checkbox"
-                  name="agreeToTerms"
                   checked={agreeToTerms}
-                  onChange={(event) => setAgreeToTerms(event.target.checked)}
+                  onChange={(event) =>
+                    setAgreeToTerms(
+                      event.target.checked
+                    )
+                  }
                 />
 
-                {errors.agreeToTerms && (
-                  <span className="form-error">{errors.agreeToTerms}</span>
-                )}
-
                 <span>
-                  I agree to the <a href="/terms">Terms of Service</a> and{" "}
-                  <a href="/privacy">Privacy Policy</a>.
+                  I agree to the{" "}
+                  <a href="/terms">
+                    Terms of Service
+                  </a>{" "}
+                  and{" "}
+                  <a href="/privacy">
+                    Privacy Policy
+                  </a>
+                  .
                 </span>
               </label>
+
+              {errors.agreeToTerms && (
+                <span className="form-error">
+                  {errors.agreeToTerms}
+                </span>
+              )}
             </div>
 
-            {/* Submit */}
-            <button type="submit" className="register-submit">
+            {/* SUBMIT */}
+
+            <button
+              type="submit"
+              className="register-submit"
+            >
               Create Account
               <span>→</span>
             </button>
           </form>
 
-          {/* Login link */}
           <div className="login-prompt">
-            <span>Already have an account?</span>
+            <span>
+              Already have an account?
+            </span>
 
-            <a href="/login">Sign in</a>
+            <a href="/login">
+              Sign in
+            </a>
           </div>
         </div>
       </section>

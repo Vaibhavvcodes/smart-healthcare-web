@@ -3,16 +3,32 @@
    ========================================================= */
 
 .register-page {
+  --register-primary: #087f8c;
+  --register-primary-dark: #05636e;
+  --register-primary-light: #e7f7f8;
+
+  --register-bg: #f7fbfc;
+  --register-surface: #ffffff;
+
+  --register-heading: #102a43;
+  --register-text: #243b53;
+  --register-muted: #627d98;
+
+  --register-border: #d5e4e8;
+  --register-danger: #c24141;
+
   min-height: 100vh;
+
   display: grid;
   grid-template-columns: 1fr 1fr;
 
-  background: #f7fbfc;
+  background: var(--register-bg);
+
+  color: var(--register-text);
 }
 
-
 /* =========================================================
-   LEFT INFORMATION PANEL
+   LEFT PANEL
    ========================================================= */
 
 .register-info {
@@ -34,7 +50,7 @@
       #ffffff 100%
     );
 
-  border-right: 1px solid #d9e8ec;
+  border-right: 1px solid var(--register-border);
 }
 
 .register-info::before {
@@ -49,6 +65,7 @@
   right: -220px;
 
   border: 1px solid rgba(8, 127, 140, 0.12);
+
   border-radius: 50%;
 }
 
@@ -64,13 +81,9 @@
   left: -150px;
 
   border: 1px solid rgba(8, 127, 140, 0.1);
+
   border-radius: 50%;
 }
-
-
-/* =========================================================
-   BRAND
-   ========================================================= */
 
 .register-brand {
   position: relative;
@@ -78,13 +91,15 @@
 
   display: inline-flex;
   align-items: center;
+
   gap: 10px;
 
   width: fit-content;
 
-  color: #102a43;
+  color: var(--register-heading);
 
   font-family: "Manrope", sans-serif;
+
   font-size: 19px;
   font-weight: 800;
 }
@@ -99,18 +114,13 @@
   border-radius: 10px;
 
   color: #ffffff;
-  background: #087f8c;
+  background: var(--register-primary);
 
   font-size: 22px;
   font-weight: 700;
 
   box-shadow: 0 8px 20px rgba(8, 127, 140, 0.2);
 }
-
-
-/* =========================================================
-   LEFT CONTENT
-   ========================================================= */
 
 .register-info-content {
   position: relative;
@@ -121,47 +131,50 @@
   margin: auto 0;
 }
 
-.register-info-content .section-label {
+.register-info-content .section-label,
+.register-heading .section-label {
   display: inline-block;
 
-  margin-bottom: 18px;
+  margin-bottom: 10px;
 
-  color: #087f8c;
+  color: var(--register-primary);
 
   font-size: 11px;
   font-weight: 800;
+
   letter-spacing: 0.13em;
+}
+
+.register-info-content .section-label {
+  margin-bottom: 18px;
 }
 
 .register-info-content h1 {
   margin-bottom: 22px;
 
-  color: #102a43;
+  color: var(--register-heading);
 
   font-family: "Manrope", sans-serif;
+
   font-size: clamp(40px, 4.5vw, 60px);
   font-weight: 800;
+
   line-height: 1.08;
   letter-spacing: -0.045em;
 }
 
 .register-info-content h1 span {
-  color: #087f8c;
+  color: var(--register-primary);
 }
 
 .register-info-content p {
   max-width: 470px;
 
-  color: #627d98;
+  color: var(--register-muted);
 
   font-size: 16px;
   line-height: 1.8;
 }
-
-
-/* =========================================================
-   LEFT FOOTER INFORMATION
-   ========================================================= */
 
 .register-info-footer {
   position: relative;
@@ -170,9 +183,10 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+
   gap: 20px;
 
-  color: #6b8791;
+  color: var(--register-muted);
 
   font-size: 11px;
   font-weight: 600;
@@ -181,6 +195,7 @@
 .register-info-footer span {
   display: inline-flex;
   align-items: center;
+
   gap: 7px;
 }
 
@@ -192,12 +207,11 @@
 
   border-radius: 50%;
 
-  background: #087f8c;
+  background: var(--register-primary);
 }
 
-
 /* =========================================================
-   RIGHT FORM PANEL
+   RIGHT
    ========================================================= */
 
 .register-form-section {
@@ -207,81 +221,62 @@
 
   padding: 60px 8%;
 
-  background: #ffffff;
+  background: var(--register-surface);
 }
 
 .register-form-container {
   width: min(430px, 100%);
 }
 
-
-/* =========================================================
-   REGISTER HEADING
-   ========================================================= */
-
 .register-heading {
   margin-bottom: 30px;
-}
-
-.register-heading .section-label {
-  display: inline-block;
-
-  margin-bottom: 10px;
-
-  color: #087f8c;
-
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.13em;
 }
 
 .register-heading h2 {
   margin-bottom: 10px;
 
-  color: #102a43;
+  color: var(--register-heading);
 
   font-family: "Manrope", sans-serif;
+
   font-size: 32px;
   font-weight: 800;
+
   line-height: 1.2;
   letter-spacing: -0.03em;
 }
 
 .register-heading p {
-  color: #627d98;
+  color: var(--register-muted);
 
   font-size: 13px;
   line-height: 1.7;
 }
 
-
 /* =========================================================
-   REGISTER FORM
+   FORM
    ========================================================= */
 
 .register-form {
   display: flex;
   flex-direction: column;
+
   gap: 17px;
 }
 
 .register-form .form-group {
   display: flex;
   flex-direction: column;
+
   gap: 8px;
 }
 
 .register-form .form-group label {
-  color: #102a43;
+  color: var(--register-heading);
 
   font-size: 12px;
   font-weight: 700;
 }
-
-
-/* =========================================================
-   INPUTS
-   ========================================================= */
 
 .register-form .form-group input,
 .register-form .form-group select {
@@ -290,48 +285,141 @@
 
   padding: 0 15px;
 
-  border: 1px solid #d5e4e8;
+  border: 1px solid var(--register-border);
   border-radius: 9px;
 
   outline: none;
 
-  color: #102a43;
-  background: #fbfdfe;
+  color: var(--register-heading);
+
+  background: color-mix(
+    in srgb,
+    var(--register-surface) 94%,
+    var(--register-bg)
+  );
 
   font-family: "DM Sans", sans-serif;
+
   font-size: 13px;
 
-  transition:
-    border-color 0.2s ease,
-    background 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: 0.2s ease;
 }
 
 .register-form .form-group input::placeholder {
-  color: #9aaebb;
+  color: var(--register-muted);
 }
 
 .register-form .form-group input:hover,
 .register-form .form-group select:hover {
-  border-color: #b9d5da;
+  border-color: var(--register-primary);
 }
 
 .register-form .form-group input:focus,
 .register-form .form-group select:focus {
-  border-color: #087f8c;
+  border-color: var(--register-primary);
 
-  background: #ffffff;
+  background: var(--register-surface);
 
-  box-shadow: 0 0 0 3px rgba(8, 127, 140, 0.09);
+  box-shadow:
+    0 0 0 3px rgba(8, 127, 140, 0.09);
 }
 
 .register-form .form-group select {
   cursor: pointer;
 }
 
+/* =========================================================
+   PASSWORD
+   ========================================================= */
+
+.register-password-wrapper {
+  position: relative;
+}
+
+.register-password-wrapper input {
+  padding-right: 65px;
+}
+
+.register-password-toggle {
+  position: absolute;
+
+  top: 50%;
+  right: 14px;
+
+  transform: translateY(-50%);
+
+  padding: 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: var(--register-primary);
+
+  font-size: 11px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.register-password-toggle:hover {
+  color: var(--register-primary-dark);
+}
 
 /* =========================================================
-   REGISTER BUTTON
+   TERMS
+   ========================================================= */
+
+.terms-group {
+  margin-top: 2px;
+}
+
+.terms-label {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 10px;
+
+  color: var(--register-muted);
+
+  font-size: 11px;
+  line-height: 1.6;
+
+  cursor: pointer;
+}
+
+.terms-label input {
+  flex: 0 0 auto;
+
+  width: 15px;
+  height: 15px;
+
+  margin-top: 1px;
+
+  accent-color: var(--register-primary);
+
+  cursor: pointer;
+}
+
+.terms-label a {
+  color: var(--register-primary);
+
+  font-weight: 700;
+}
+
+.terms-label a:hover {
+  color: var(--register-primary-dark);
+}
+
+.register-page .form-error {
+  color: var(--register-danger);
+
+  font-size: 11px;
+}
+
+/* =========================================================
+   BUTTON
    ========================================================= */
 
 .register-submit {
@@ -341,6 +429,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
   gap: 12px;
 
   margin-top: 5px;
@@ -351,37 +440,33 @@
   cursor: pointer;
 
   color: #ffffff;
-  background: #087f8c;
+  background: var(--register-primary);
 
-  font-family: "DM Sans", sans-serif;
   font-size: 13px;
   font-weight: 700;
 
-  box-shadow: 0 10px 22px rgba(8, 127, 140, 0.17);
+  box-shadow:
+    0 10px 22px rgba(8, 127, 140, 0.17);
 
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: 0.2s ease;
 }
 
 .register-submit span {
   font-size: 18px;
-  line-height: 1;
 }
 
 .register-submit:hover {
-  background: #05636e;
+  background: var(--register-primary-dark);
 
   transform: translateY(-2px);
 
-  box-shadow: 0 13px 25px rgba(8, 127, 140, 0.23);
+  box-shadow:
+    0 13px 25px rgba(8, 127, 140, 0.23);
 }
 
 .register-submit:active {
   transform: translateY(0);
 }
-
 
 /* =========================================================
    LOGIN PROMPT
@@ -391,30 +476,75 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
   gap: 5px;
 
   margin-top: 24px;
 
-  color: #627d98;
+  color: var(--register-muted);
 
   font-size: 12px;
 }
 
 .login-prompt a {
-  color: #087f8c;
+  color: var(--register-primary);
 
   font-weight: 700;
-
-  transition: color 0.2s ease;
 }
 
 .login-prompt a:hover {
-  color: #05636e;
+  color: var(--register-primary-dark);
 }
 
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+@media (prefers-color-scheme: dark) {
+  .register-page {
+    --register-primary: #19a79d;
+    --register-primary-dark: #12877f;
+    --register-primary-light: #123c39;
+
+    --register-bg: #081918;
+    --register-surface: #0d2422;
+
+    --register-heading: #f0faf9;
+    --register-text: #d7e8e6;
+    --register-muted: #91aaa7;
+
+    --register-border: #234340;
+
+    --register-danger: #f87171;
+  }
+
+  .register-info {
+    background:
+      linear-gradient(
+        145deg,
+        #102b29 0%,
+        #0d2422 55%,
+        #081918 100%
+      );
+  }
+
+  .register-form-section {
+    background: #0d2422;
+  }
+
+  .register-form .form-group input,
+  .register-form .form-group select {
+    background: #102b29;
+  }
+
+  .register-form .form-group input:focus,
+  .register-form .form-group select:focus {
+    background: #0d2422;
+  }
+}
 
 /* =========================================================
-   RESPONSIVE DESIGN
+   RESPONSIVE
    ========================================================= */
 
 @media (max-width: 900px) {
@@ -440,7 +570,6 @@
     padding: 70px 7%;
   }
 }
-
 
 @media (max-width: 600px) {
   .register-info {
@@ -474,103 +603,15 @@
   }
 }
 
-/* =========================================================
-   PASSWORD VISIBILITY TOGGLE
-   ========================================================= */
-
-.register-password-wrapper {
-  position: relative;
-}
-
-.register-password-wrapper input {
-  padding-right: 65px;
-}
-
-.register-password-toggle {
-  position: absolute;
-
-  top: 50%;
-  right: 14px;
-
-  transform: translateY(-50%);
-
-  padding: 0;
-
-  border: none;
-  outline: none;
-
-  background: transparent;
-
-  color: #087f8c;
-
-  font-family: "DM Sans", sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition: color 0.2s ease;
-}
-
-.register-password-toggle:hover {
-  color: #05636e;
-}
-
-/* =========================================================
-   TERMS AND CONDITIONS
-   ========================================================= */
-
-.terms-group {
-  margin-top: 2px;
-}
-
-.terms-label {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-
-  color: #627d98;
-
-  font-size: 11px;
-  line-height: 1.6;
-
+input[type="date"] {
   cursor: pointer;
 }
 
-.terms-label input {
-  flex: 0 0 auto;
-
-  width: 15px;
-  height: 15px;
-
-  margin-top: 1px;
-
-  accent-color: #087f8c;
-
+input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
-}
 
-.terms-label a {
-  color: #087f8c;
-  font-weight: 700;
+  opacity: 0.8;
 
-  transition: color 0.2s ease;
-}
-
-.terms-label a:hover {
-  color: #05636e;
-}
-
-/* =========================================================
-   FORM VALIDATION
-   ========================================================= */
-
-.form-error {
-  margin-top: -2px;
-
-  color: #c24141;
-
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1.4;
+  width: 18px;
+  height: 18px;
 }

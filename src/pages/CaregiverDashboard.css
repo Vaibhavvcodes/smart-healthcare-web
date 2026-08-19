@@ -1,0 +1,1309 @@
+/* =========================================================
+   CAREGIVER DASHBOARD
+   ========================================================= */
+
+.caregiver-dashboard {
+  --primary: #0b9a91;
+  --primary-dark: #087f78;
+  --primary-light: #e7f7f5;
+
+  --background: #eff9f7;
+  --card: #ffffff;
+  --border: #d8e9e7;
+
+  --heading: #102a43;
+  --text: #334e68;
+  --muted: #829ab1;
+
+  --green: #249b6d;
+  --green-light: #eaf8f1;
+
+  --red: #d94d4d;
+  --red-light: #fff0f0;
+
+  --orange: #e78336;
+  --orange-light: #fff3e8;
+
+  --blue: #2b83d6;
+  --blue-light: #edf6ff;
+
+  width: 100%;
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at 5% 5%,
+      rgba(11, 154, 145, 0.08),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      #f5fcfb,
+      #edf9f7,
+      #f8fcfc
+    );
+
+  color: var(--heading);
+
+  font-family:
+    "DM Sans",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+
+/* =========================================================
+   SYSTEM DARK MODE
+   ========================================================= */
+
+@media (prefers-color-scheme: dark) {
+  .caregiver-dashboard:not(.light-mode):not(.dark-mode) {
+    --background: #071615;
+    --card: #0d201f;
+    --border: #1d3937;
+
+    --heading: #e8f6f4;
+    --text: #c4d8d6;
+    --muted: #829e9b;
+
+    --primary-light: #123b38;
+    --green-light: #12372d;
+
+    --red-light: #351d20;
+    --orange-light: #38271d;
+    --blue-light: #142e40;
+
+    background:
+      radial-gradient(
+        circle at 5% 5%,
+        rgba(11, 154, 145, 0.13),
+        transparent 30%
+      ),
+      #071615;
+  }
+}
+
+
+/* =========================================================
+   MANUAL DARK MODE
+   ========================================================= */
+
+.caregiver-dashboard.dark-mode {
+  --background: #071615;
+  --card: #0d201f;
+  --border: #1d3937;
+
+  --heading: #e8f6f4;
+  --text: #c4d8d6;
+  --muted: #829e9b;
+
+  --primary-light: #123b38;
+  --green-light: #12372d;
+
+  --red-light: #351d20;
+  --orange-light: #38271d;
+  --blue-light: #142e40;
+
+  background:
+    radial-gradient(
+      circle at 5% 5%,
+      rgba(11, 154, 145, 0.13),
+      transparent 30%
+    ),
+    #071615;
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.caregiver-navbar {
+  width: 100%;
+  min-height: 68px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 42px;
+
+  border-bottom: 1px solid var(--border);
+
+  background: rgba(255, 255, 255, 0.88);
+
+  backdrop-filter: blur(14px);
+
+  position: sticky;
+  top: 0;
+
+  z-index: 100;
+}
+
+@media (prefers-color-scheme: dark) {
+  .caregiver-dashboard:not(.light-mode):not(.dark-mode)
+    .caregiver-navbar {
+    background: rgba(7, 22, 21, 0.92);
+  }
+}
+
+.caregiver-dashboard.dark-mode .caregiver-navbar {
+  background: rgba(7, 22, 21, 0.92);
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.caregiver-brand {
+  min-width: 220px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  color: var(--heading);
+
+  font-size: 20px;
+  font-weight: 800;
+
+  letter-spacing: -0.04em;
+}
+
+.caregiver-brand > span > span {
+  color: var(--primary);
+}
+
+.caregiver-brand-mark {
+  width: 31px;
+  height: 31px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 9px;
+
+  color: #ffffff;
+  background: var(--primary);
+
+  font-size: 20px;
+
+  box-shadow:
+    0 5px 14px rgba(11, 154, 145, 0.2);
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.caregiver-nav-links {
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+
+  gap: 5px;
+}
+
+.caregiver-nav-link {
+  padding: 10px 18px;
+
+  border-radius: 8px;
+
+  color: var(--text);
+
+  font-size: 12px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.caregiver-nav-link:hover {
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+.caregiver-nav-link.active {
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+
+/* =========================================================
+   NAVBAR ACTIONS
+   ========================================================= */
+
+.caregiver-navbar-actions {
+  min-width: 220px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 17px;
+}
+
+
+/* Theme Toggle */
+
+.caregiver-theme-toggle {
+  display: flex;
+  align-items: center;
+
+  padding: 3px;
+
+  border: 1px solid var(--border);
+  border-radius: 20px;
+
+  background: var(--card);
+
+  cursor: pointer;
+}
+
+.caregiver-theme-toggle span {
+  padding: 6px 9px;
+
+  border-radius: 15px;
+
+  color: var(--muted);
+
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.caregiver-theme-toggle span.selected {
+  color: var(--heading);
+
+  background: var(--primary-light);
+}
+
+
+/* Profile */
+
+.caregiver-profile-button {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  border: none;
+
+  color: var(--heading);
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.caregiver-profile-avatar {
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  color: #ffffff;
+  background: var(--primary);
+
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.caregiver-profile-name {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.caregiver-dashboard-content {
+  width: 100%;
+
+  padding:
+    35px
+    clamp(25px, 4vw, 65px)
+    60px;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.caregiver-dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  gap: 30px;
+
+  padding-bottom: 26px;
+
+  margin-bottom: 25px;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.caregiver-label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--primary);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.14em;
+}
+
+.caregiver-dashboard-header h1 {
+  margin: 0 0 8px;
+
+  color: var(--heading);
+
+  font-size: clamp(30px, 3vw, 42px);
+
+  font-weight: 800;
+
+  line-height: 1.1;
+
+  letter-spacing: -0.045em;
+}
+
+.caregiver-dashboard-header p {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+.caregiver-header-right {
+  display: flex;
+  align-items: center;
+
+  gap: 28px;
+}
+
+.caregiver-date {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+
+  text-align: right;
+}
+
+.caregiver-date span {
+  color: var(--muted);
+
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+}
+
+.caregiver-date strong {
+  color: var(--heading);
+
+  font-size: 12px;
+}
+
+.caregiver-status {
+  min-width: 155px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 12px 15px;
+
+  border: 1px solid var(--border);
+  border-radius: 11px;
+
+  background: var(--card);
+}
+
+.caregiver-status-dot {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  background: var(--green);
+
+  box-shadow:
+    0 0 0 5px var(--green-light);
+}
+
+.caregiver-status div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.caregiver-status div span {
+  color: var(--muted);
+
+  font-size: 8px;
+}
+
+.caregiver-status strong {
+  color: var(--green);
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   HEADINGS
+   ========================================================= */
+
+.caregiver-section-heading,
+.caregiver-card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  gap: 20px;
+
+  margin-bottom: 14px;
+}
+
+.caregiver-section-heading h2,
+.caregiver-card-heading h2 {
+  margin: 0;
+
+  color: var(--heading);
+
+  font-size: 18px;
+  font-weight: 800;
+
+  letter-spacing: -0.025em;
+}
+
+
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+
+.caregiver-summary-section {
+  margin-bottom: 20px;
+}
+
+.caregiver-summary-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 13px;
+}
+
+.caregiver-summary-card {
+  padding: 19px;
+
+  border: 1px solid var(--border);
+  border-radius: 13px;
+
+  background: var(--card);
+
+  box-shadow:
+    0 7px 24px rgba(25, 75, 72, 0.035);
+
+  transition: 0.2s ease;
+}
+
+.caregiver-summary-card:hover {
+  transform: translateY(-2px);
+
+  border-color:
+    rgba(11, 154, 145, 0.35);
+
+  box-shadow:
+    0 12px 28px rgba(25, 75, 72, 0.07);
+}
+
+.caregiver-summary-icon {
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+  place-items: center;
+
+  margin-bottom: 14px;
+
+  border-radius: 10px;
+
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.caregiver-summary-icon.patients {
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+.caregiver-summary-icon.tasks {
+  color: var(--blue);
+  background: var(--blue-light);
+}
+
+.caregiver-summary-icon.medication {
+  color: var(--green);
+  background: var(--green-light);
+}
+
+.caregiver-summary-icon.alerts {
+  color: var(--orange);
+  background: var(--orange-light);
+}
+
+.caregiver-summary-title {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: var(--text);
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.caregiver-summary-value {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: var(--heading);
+
+  font-size: 29px;
+  font-weight: 800;
+
+  letter-spacing: -0.04em;
+}
+
+.caregiver-summary-description {
+  color: var(--muted);
+
+  font-size: 8px;
+}
+
+
+/* =========================================================
+   TWO COLUMN
+   ========================================================= */
+
+.caregiver-two-column {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.15fr)
+    minmax(0, 0.85fr);
+
+  gap: 13px;
+
+  margin-bottom: 20px;
+}
+
+.caregiver-card {
+  min-width: 0;
+
+  padding: 20px;
+
+  border: 1px solid var(--border);
+  border-radius: 13px;
+
+  background: var(--card);
+
+  box-shadow:
+    0 7px 24px rgba(25, 75, 72, 0.035);
+}
+
+
+/* =========================================================
+   VIEW ALL
+   ========================================================= */
+
+.caregiver-view-all {
+  color: var(--primary);
+
+  font-size: 9px;
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+.caregiver-view-all:hover {
+  color: var(--primary-dark);
+}
+
+
+/* =========================================================
+   PATIENTS
+   ========================================================= */
+
+.caregiver-patients-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.caregiver-patient-row {
+  display: grid;
+
+  grid-template-columns:
+    38px
+    minmax(130px, 1fr)
+    minmax(100px, 0.7fr)
+    auto;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 13px 0;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.caregiver-patient-row:last-child {
+  border-bottom: none;
+}
+
+.caregiver-patient-avatar {
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  color: var(--primary);
+
+  background: var(--primary-light);
+
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.caregiver-patient-info {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.caregiver-patient-info strong {
+  overflow: hidden;
+
+  color: var(--heading);
+
+  font-size: 10px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.caregiver-patient-info span {
+  overflow: hidden;
+
+  color: var(--muted);
+
+  font-size: 8px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.caregiver-patient-vitals {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.caregiver-patient-vitals span {
+  color: var(--muted);
+
+  font-size: 7px;
+}
+
+.caregiver-patient-vitals strong {
+  color: var(--heading);
+
+  font-size: 9px;
+}
+
+.patient-health {
+  padding: 5px 8px;
+
+  border-radius: 6px;
+
+  font-size: 7px;
+  font-weight: 800;
+}
+
+.patient-health.stable {
+  color: var(--green);
+  background: var(--green-light);
+}
+
+.patient-health.attention {
+  color: var(--orange);
+  background: var(--orange-light);
+}
+
+
+/* =========================================================
+   TASKS
+   ========================================================= */
+
+.caregiver-task-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.caregiver-task {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 13px 0;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.caregiver-task:last-child {
+  border-bottom: none;
+}
+
+.task-checkbox {
+  width: 19px;
+  height: 19px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid var(--border);
+  border-radius: 5px;
+
+  color: white;
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.caregiver-task.completed .task-checkbox {
+  border-color: var(--green);
+
+  background: var(--green);
+}
+
+.caregiver-task > div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.caregiver-task strong {
+  color: var(--heading);
+
+  font-size: 10px;
+}
+
+.caregiver-task span {
+  color: var(--muted);
+
+  font-size: 8px;
+}
+
+.caregiver-task.completed strong {
+  color: var(--muted);
+
+  text-decoration: line-through;
+}
+
+
+/* =========================================================
+   ALERTS
+   ========================================================= */
+
+.caregiver-alert-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.caregiver-alert-row {
+  display: grid;
+
+  grid-template-columns:
+    8px
+    minmax(0, 1fr)
+    auto;
+
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.caregiver-alert-row:last-child {
+  border-bottom: none;
+}
+
+.caregiver-alert-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+}
+
+.caregiver-alert-row.critical .caregiver-alert-dot {
+  background: var(--red);
+}
+
+.caregiver-alert-row.warning .caregiver-alert-dot {
+  background: var(--orange);
+}
+
+.caregiver-alert-row.normal .caregiver-alert-dot {
+  background: var(--green);
+}
+
+.caregiver-alert-row > div {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.caregiver-alert-row strong {
+  overflow: hidden;
+
+  color: var(--heading);
+
+  font-size: 10px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.caregiver-alert-row div span {
+  overflow: hidden;
+
+  color: var(--muted);
+
+  font-size: 8px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.caregiver-alert-row time {
+  color: var(--muted);
+
+  font-size: 8px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   MEDICATION
+   ========================================================= */
+
+.medication-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.medication-row {
+  display: grid;
+
+  grid-template-columns:
+    65px
+    minmax(0, 1fr)
+    auto;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.medication-row:last-child {
+  border-bottom: none;
+}
+
+.medication-time {
+  color: var(--primary);
+
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.medication-info {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.medication-info strong {
+  color: var(--heading);
+
+  font-size: 10px;
+}
+
+.medication-info span {
+  color: var(--muted);
+
+  font-size: 8px;
+}
+
+.medication-status {
+  padding: 5px 8px;
+
+  border-radius: 6px;
+
+  font-size: 7px;
+  font-weight: 800;
+}
+
+.medication-status.upcoming {
+  color: var(--blue);
+
+  background: var(--blue-light);
+}
+
+
+/* =========================================================
+   DAILY PROGRESS
+   ========================================================= */
+
+.caregiver-progress-card {
+  margin-bottom: 0;
+}
+
+.caregiver-progress-date {
+  color: var(--muted);
+
+  font-size: 9px;
+}
+
+.caregiver-progress-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 13px;
+}
+
+.caregiver-progress-item {
+  padding: 16px;
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  background: var(--primary-light);
+}
+
+.caregiver-progress-top {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 10px;
+}
+
+.caregiver-progress-top span {
+  color: var(--text);
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.caregiver-progress-top strong {
+  color: var(--primary);
+
+  font-size: 9px;
+}
+
+.caregiver-progress-track {
+  width: 100%;
+  height: 6px;
+
+  overflow: hidden;
+
+  margin-bottom: 8px;
+
+  border-radius: 20px;
+
+  background: var(--border);
+}
+
+.caregiver-progress-track span {
+  display: block;
+
+  height: 100%;
+
+  border-radius: inherit;
+}
+
+.progress-green {
+  background: #2ab673;
+}
+
+.progress-blue {
+  background: #2989df;
+}
+
+.progress-orange {
+  background: #f28a3d;
+}
+
+.caregiver-progress-item small {
+  color: var(--muted);
+
+  font-size: 7px;
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 1200px) {
+
+  .caregiver-brand {
+    min-width: 180px;
+  }
+
+  .caregiver-navbar-actions {
+    min-width: 180px;
+  }
+
+  .caregiver-summary-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .caregiver-two-column {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — SMALL LAPTOP / TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .caregiver-navbar {
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    padding: 14px 22px;
+  }
+
+  .caregiver-brand {
+    min-width: auto;
+  }
+
+  .caregiver-nav-links {
+    order: 3;
+
+    width: 100%;
+
+    justify-content: flex-start;
+
+    overflow-x: auto;
+  }
+
+  .caregiver-navbar-actions {
+    min-width: auto;
+
+    margin-left: auto;
+  }
+
+  .caregiver-dashboard-content {
+    padding:
+      30px
+      25px
+      50px;
+  }
+
+  .caregiver-dashboard-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .caregiver-header-right {
+    width: 100%;
+
+    justify-content: space-between;
+  }
+
+  .caregiver-date {
+    text-align: left;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+  .caregiver-dashboard-content {
+    padding:
+      25px
+      16px
+      40px;
+  }
+
+  .caregiver-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .caregiver-dashboard-header h1 {
+    font-size: 30px;
+  }
+
+  .caregiver-header-right {
+    align-items: stretch;
+
+    flex-direction: column;
+
+    gap: 12px;
+  }
+
+  .caregiver-date {
+    text-align: left;
+  }
+
+  .caregiver-status {
+    width: 100%;
+  }
+
+  .caregiver-section-heading,
+  .caregiver-card-heading {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .caregiver-patient-row {
+    grid-template-columns:
+      38px
+      minmax(0, 1fr)
+      auto;
+  }
+
+  .caregiver-patient-vitals {
+    display: none;
+  }
+
+  .caregiver-alert-row {
+    grid-template-columns:
+      8px
+      minmax(0, 1fr);
+  }
+
+  .caregiver-alert-row time {
+    display: none;
+  }
+
+  .medication-row {
+    grid-template-columns:
+      65px
+      minmax(0, 1fr);
+  }
+
+  .medication-status {
+    display: none;
+  }
+
+  .caregiver-progress-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .caregiver-profile-name {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 450px) {
+
+  .caregiver-navbar {
+    padding: 12px 15px;
+  }
+
+  .caregiver-brand {
+    font-size: 18px;
+  }
+
+  .caregiver-brand-mark {
+    width: 27px;
+    height: 27px;
+  }
+
+  .caregiver-nav-link {
+    padding: 8px 11px;
+
+    font-size: 10px;
+  }
+
+  .caregiver-theme-toggle span {
+    padding: 5px 7px;
+  }
+
+  .caregiver-card,
+  .caregiver-summary-card {
+    padding: 16px;
+  }
+}
